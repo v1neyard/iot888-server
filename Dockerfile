@@ -1,40 +1,21 @@
-# Build stage
-FROM python:3.10-slim AS builder
-
-WORKDIR /app
-
-# Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libgl1 \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements and build wheels
-COPY requirements.txt ./
-RUN pip install --no-cache-dir --prefer-binary --user -r requirements.txt
-
-# Runtime stage
 FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install only runtime dependencies (not build tools)
+# Install only needed system libs (for OpenCV & YOLO)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only the installed packages from builder
-COPY --from=builder /root/.local /root/.local
+# Copy only necessary files first (to leverage Docker layer caching)
+COPY requirements.txt ./
 
-# Copy application code
-COPY server.py ./
+# Install dependencies
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
 
-# Set PATH to use local pip packages
-ENV PATH=/root/.local/bin:$PATH \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+# Copy all source code
+COPY . /app
 
 EXPOSE 8000
 
