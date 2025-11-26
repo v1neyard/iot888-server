@@ -6,7 +6,7 @@ from fastapi import FastAPI, WebSocket
 import uvicorn
 
 app = FastAPI()
-model = YOLO("yolov8n.pt", verbose=False) # or yolov11n, yolov8s, etc.
+model = YOLO("yolov8n.pt") # or yolov11n, yolov8s, etc.
 
 @app.websocket("/ws")
 async def inference_socket(ws: WebSocket):
