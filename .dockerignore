@@ -1,0 +1,13 @@
+__pycache__/
+*.pt
+*.onnx
+*.jpg
+*.png
+*.mp4
+*.zip
+*.log
+*.csv
+.vscode/
+.git/
+data/
+runs/

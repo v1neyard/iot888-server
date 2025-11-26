@@ -1,4 +1,4 @@
-ultralytics
+ultralytics==8.1.0
 fastapi
 uvicorn[standard]
 opencv-python-headless
