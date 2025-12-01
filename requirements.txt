@@ -1,5 +1,11 @@
-ultralytics==8.1.0
 fastapi
 uvicorn[standard]
-opencv-python-headless
+opencv-python
 numpy
+ultralytics
+paho-mqtt
+firebase-admin
+google-cloud-firestore
+google-cloud-storage
+python-dotenv
+asyncio
