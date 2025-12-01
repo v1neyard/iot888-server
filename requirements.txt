@@ -1,11 +1,8 @@
 fastapi
 uvicorn[standard]
-opencv-python
 numpy
+opencv-python-headless
+pillow
 ultralytics
-paho-mqtt
 firebase-admin
-google-cloud-firestore
-google-cloud-storage
-python-dotenv
-asyncio
+python-multipart
